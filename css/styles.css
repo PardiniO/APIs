@@ -66,8 +66,6 @@ header.nav {
     flex-direction: column;
 }
 
-
-
 #menu, #perfil, #btn-modo-osc {
     background: none;
     border: none;
@@ -247,28 +245,6 @@ main {
     display: flex;
     justify-content: space-between;
     text-align: center;
-}
-
-#genero-libros {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 1rem;
-}
-
-#genero-libros button {
-    background-color: var(--btns-claros);
-    border: none;
-    border-radius: 20px;
-    padding: 0.5rem 1rem;  
-    cursor: pointer;
-    color: var(--texto);
-    transition: background-color 0.3s;
-}
-
-#generos-libros button:hover {
-    background-color: var(--marron-btns);
 }
 
 #biblioteca-personal {
