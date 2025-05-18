@@ -1,8 +1,10 @@
 import { detalleAutor } from "js/ui/detalleAutor.js";
+import { buscarConFiltros } from "js/api/libros.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     cargarLibrosTop();
     cargarLibrosPublicos();
+    buscarConFiltros();
     moverCarrusel();
     cargarAutores();
     detalleAutor();
@@ -10,7 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('icono-busqueda')?.addEventListener('click', () => {
         const valor = document.getElementById('busqueda').value.trim();
         if (valor) {
-            buscarLibros(valor);
+            document.querySelector('#busqueda')?.scrollIntoView({ behavior: 'smooth' });
+            buscarConFiltros(valor);
         } else {
             alert('Por favor, ingresa un término de búsqueda.');
         }

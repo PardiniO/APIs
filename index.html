@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Libreria digital</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="app.js" defer></script>
+    <script src="js/main.js" type="module"></script>
 </head>
 <body>
     <header class="nav">
@@ -37,10 +37,21 @@
         </div>
 
         <div id="filtros-checkbox">
-            <label><input type="checkbox" value="autor"> Autor</label>
-            <label><input type="checkbox" value="titulo"> Titulo</label>
-            <label><input type="checkbox" value="fecha"> Año</label>
-            <label><input type="checkbox" value="genero"> Género</label>
+            <aside class="sidebar">
+                <h3>Filtros</h3>
+                <label><input type="checkbox" name="filtro" value="autor">Autor</label>
+                <label><input type="checkbox" name="filtro" value="titulo">Título</label>
+                <label><input type="checkbox" name="filtro" value="isbn">ISBN</label>
+                <label><input type="checkbox" name="filtro" value="genero">Género</label>
+                
+                <label for="ordenar">Ordenar por:</label>
+                <select id="ordenar">
+                    <option value="fecha">Año (desc)</option>
+                    <option value="valoracion">valoración</option>
+                    <option value="alfabetico">A-Z</option>
+
+                </select>
+            </aside>
         </div>
 
         <div>
@@ -59,11 +70,17 @@
     </header>
     
     <main>
-        <section class="resultados" display="none">
+        <section class="busqueda-contenedor" style="display: none;">
+            
+            <hr>
+
             <h2>Resultados de...</h2>
             <div class="resultados">
-                <div class="-resultado-libros"></div>
+                <p id="cantidad-resultados"></p>
+                <div id="resultados-libros"></div>
+                <div id="paginacion"></div>
             </div>
+            
         </section>
         
         <section class="carrusel-seccion">
@@ -72,13 +89,13 @@
                 <a href="">Ver más</a>
             </div>
             <div class="carrusel-wrapper">
-                <button class="btn-carrusel">
+                <button class="btn-carrusel" aria-label="Anterior">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-izq">
                         <rect width="18" height="18" x="3" y="3" rx="2"/><path d="m14 16-4-4 4-4"/>
                     </svg>
                 </button>
                 <div class="carrusel" id="carrusel-destacado"></div>
-                <button class="btn-carrusel">
+                <button class="btn-carrusel" aria-label="Siguiente">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-der">
                         <rect width="18" height="18" x="3" y="3" rx="2"/><path d="m10 8 4 4-4 4"/>
                     </svg>
@@ -86,7 +103,7 @@
             </div>
 
             <div class="titulo-carrusel">
-                <h2>Libros de dominio publico</h2>
+                <h2>Libros de dominio público</h2>
                 <a href="">Ver más</a>
             </div>
             <div class="carrusel-wrapper">
@@ -107,9 +124,9 @@
         
         <section id="detalle-autor">
             <h1 id="nombre-autor"></h1>
-            <img id="foto-autor" src="" alt="Fotografia de ${nombre-autor}">
+            <img id="foto-autor" src="" alt="Fotografía del autor">
             <p id="biografia"></p>
-            <h2>Obras de ${nombre-autor}</h2>
+            <h2>Obras del autor </h2>
             <ul id="lista-obras"></ul>
         </section>
 
@@ -148,7 +165,7 @@
             </ul>
         </section>
 
-        <section class="biblioteca" display="none">
+        <section class="biblioteca" style="display: none;">
             <div>
                 <h2>Leyendo</h2>
                 <div></div>
@@ -170,11 +187,11 @@
             </div>
         </section>
 
-        <section class="detalle-libro" display="none">
+        <section class="detalle-libro" style="display: none;">
             <div class="detalle-libro-imagen">
                 <img src="" alt="Portada del libro" id="portada-libro">
                 
-                <button>Agregar</button>
+                <button id="agregar-libro">Agregar</button>
                 
                 <div class="calificacion">
                     <svg></svg>
