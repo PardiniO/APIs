@@ -61,7 +61,9 @@
     <main>
         <section class="resultados" display="none">
             <h2>Resultados de...</h2>
-            <div class="resultados" id="resultados-libros"></div>
+            <div class="resultados">
+                <div class="-resultado-libros"></div>
+            </div>
         </section>
         
         <section class="carrusel-seccion">
@@ -103,11 +105,12 @@
             </div>
         </section>
         
-        <section>
-            <h2>Autores populares</h2>
-            <div>
-
-            </div>
+        <section id="detalle-autor">
+            <h1 id="nombre-autor"></h1>
+            <img id="foto-autor" src="" alt="Fotografia de ${nombre-autor}">
+            <p id="biografia"></p>
+            <h2>Obras de ${nombre-autor}</h2>
+            <ul id="lista-obras"></ul>
         </section>
 
         <section class="biblioteca">
