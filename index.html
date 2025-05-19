@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Libreria digital</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="js/main.js" type="module"></script>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/js/main.js" type="module"></script>
 </head>
 <body>
     <header class="nav">
@@ -15,7 +15,7 @@
         </div>
         
         <div id="menu">
-            <p>Inicio</p>
+            <p><a href="#">Inicio</a></p>
             <p><a href="#">Sorprendeme</a></p>
             <nav id="menu-nav">
                 <a href="#">Inicio</a>
@@ -25,13 +25,13 @@
         </div>
         
         <div id="buscador">
-            <button class="search-icon" aria-label="Buscar">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="icono-busqueda">
+            <button class="search-icon" id="icono-busqueda" aria-label="Buscar">
+                <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/>
                 </svg>
             </button>
-            <input type="text" id="busqueda" placeholder="Buscar libros...">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="icono-filtros">
+            <input id="busqueda" type="text" placeholder="Buscar libros...">
+            <svg id="icono-filtros" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/>
             </svg>
         </div>
@@ -71,13 +71,15 @@
     
     <main>
         <section class="busqueda-contenedor" style="display: none;">
-            
+            <button id="cerrar-busqueda" aria-label="Cerrar búsqueda">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXgtaWNvbiBsdWNpZGUteCI+PHBhdGggZD0iTTE4IDYgNiAxOCIvPjxwYXRoIGQ9Im02IDYgMTIgMTIiLz48L3N2Zz4=" alt="Cerrar búsqueda">
+            </button>
             <hr>
-
             <h2>Resultados de...</h2>
             <div class="resultados">
                 <p id="cantidad-resultados"></p>
                 <div id="resultados-libros"></div>
+                <div id="contenedor-resultados"></div>
                 <div id="paginacion"></div>
             </div>
             
@@ -121,8 +123,13 @@
                 </button>
             </div>
         </section>
+
+        <section id="autores-seccion">
+            <h2>Descubre autores/as</h2>
+            <div id="autores"></div>
+        </section>
         
-        <section id="detalle-autor">
+        <section id="detalle-autor" style="display: none;">
             <h1 id="nombre-autor"></h1>
             <img id="foto-autor" src="" alt="Fotografía del autor">
             <p id="biografia"></p>
@@ -130,7 +137,7 @@
             <ul id="lista-obras"></ul>
         </section>
 
-        <section class="biblioteca">
+        <section class="biblioteca" style="display: none;">
             <h2>Mi biblioteca</h2>
             <div id="Libros-guardados">
                 <ul>
@@ -188,41 +195,34 @@
         </section>
 
         <section class="detalle-libro" style="display: none;">
-            <div class="detalle-libro-imagen">
-                <img src="" alt="Portada del libro" id="portada-libro">
-                
-                <button id="agregar-libro">Agregar</button>
-                
-                <div class="calificacion">
-                    <svg></svg>
-                    <p>Calificar</p>
+            <div class="portada-contenido">
+                <div class="detalle-libro">
+                    <img id="portada-libro" src="" alt="Portada del libro">
+                    <div class="opciones-libro">
+                        <button id="btn-agregar-biblioteca">Agregar</button>
+                        <button id="btn-calificar-libro">Calificar</button>
+                        <button id="btn-reseñar-libro">Hacer reseña</button>
+                    </div>
                 </div>
-                
-                <input type="text" id="calificacion" placeholder="Escribe una reseña...">
-                <button id="guardar-resena">Guardar</button>
-            </div>
-
-            <div class="detalle-libro-info">
-                <h2 id="titulo-libro"></h2>
-                <p id="autor-libro"></p>
-                <div class="calificacion">
-                    <svg></svg>
-                    <p>Calificación: <span id="calificacion-libro"></span></p>
+                <div class="contenido-libro">
+                    <h1 id="titulo-libro"></h1>
+                    <h2 id="autor-libro"></h2>
+                    <p><strong>Rating:</strong> <span id="rating-libro"></span></p>
+                    <p><strong>Género:</strong> <span id="genero-libro"></span></p>
+                    <p><strong>Páginas:</strong> <span id="paginas-libro"></span></p>
+                    <p id="sinopsis-libro"></p>
+                    <button id="btn-mas-info">Más información</button>
+                    <div id="mas-info-libro">
+                        <p><strong>Formato:</strong> <span id="formato-libro"></span></p>
+                        <p><strong>Fecha de publicación:</strong> <span id="fecha-publicacion"></span></p>
+                        <p><strong>ISBN:</strong> <span id="isbn-libro"></span></p>
+                        <p><strong>Idioma:</strong> <span id="idioma-libro"></span></p>
+                    </div>
                 </div>
-                <p id="sinopsis-libro"></p>
-                <p id="cantidad-pag"></p>
-                <p id="genero-libro"></p>
-                <p id="anio-libro"></p>
             </div>
-            <div class="mas-info">
-                <h2>Más sobre esta edición:</h2>
-                <p id="formato-libro"></p>
-                <p id="editorial-libro"></p>
-                <p id="isbn-libro"></p>
-                <p id="fecha-publicacion"></p>
-                <p id="idioma-libro"></p>
-            </div>
+        </section>
 
+        <section class="reseñas" style="display: none;">
             <div class="reseña">
                 <div></div>
                 <div class="calificacion"></div>

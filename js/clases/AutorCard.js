@@ -1,4 +1,4 @@
-class AutorCard {
+export class AutorCard {
     constructor(img, nombre, btnVerMas, btnAgregar) {
         this.card = document.createElement('div');
         this.card.className = 'autor';
@@ -20,11 +20,20 @@ class AutorCard {
         cardBtnAgregar.className = 'btn-agregar';
         cardBtnAgregar.href = '#';
         cardBtnAgregar.textContent = btnAgregar;
+
+        const btnsDiv = document.createElement('div');
+        btnsDiv.style.display = 'flex';
+        btnsDiv.style.justifyContent = 'center';
+        btnsDiv.style.gap = '0.5rem';
+        btnsDiv.appendChild(cardBtnVer);
+        btnsDiv.appendChild(cardBtnAgregar);
         
         this.card.appendChild(cardImage);
         this.card.appendChild(cardNombre);
         this.card.appendChild(cardBtnVer);
-        this.card.appendChild(cardBtnAgregar);
+        this.card.appendChild(btnsDiv);
+
+        this.element = this.card;
     }
     
     appendTo(parent) {

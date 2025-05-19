@@ -1,4 +1,4 @@
-function moverCarrusel(id, direccion) {
+export function moverCarrusel() {
     const wrappers = document.querySelectorAll('.carrusel-wrapper');
 
     wrappers.forEach(wrapper => {
@@ -15,13 +15,13 @@ function moverCarrusel(id, direccion) {
 
         [btnIzq, btnDer].forEach(boton => {
             boton.addEventListener('click', () => {
-                const direccion = classList.contains('izq') ? -1 : 1;
-                const ancho = carrusel.querySelector('item-carrusel')?.offsetWidth || 200;
+                const direccion = boton.classList.contains('btn-izq') ? -1 : 1;
+                const ancho = carrusel.querySelector('.item-carrusel')?.offsetWidth || 200;
                 carrusel.scrollBy({ left: direccion * (ancho + 20), behavior: 'smooth' });
-
                 setTimeout(actualizarVisibilidad, 400);
             });
         });
+
         carrusel.addEventListener('scroll', actualizarVisibilidad);
     });
 }
