@@ -1,3 +1,7 @@
+import { LibroInfo } from "../clases/LibroInfo.js";
+import { LibroCard } from "../clases/LibroCard.js";
+import { LibroDetalle } from "../clases/LibroDetalle.js";
+
 export async function buscarLibros(query) {
     try {
         const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}`);
@@ -11,20 +15,10 @@ export async function buscarLibros(query) {
             return;
         }
 
-        data.items?.forEach(libro => {
-            const info = libro.volumeInfo || {};
-            const titulo = info.title || 'Sin título';
-            const autor = info.authors?.[0] || 'Autor desconocido';
-            const imagen = info.imageLinks?.thumbnail || 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWltYWdlLW9mZi1pY29uIGx1Y2lkZS1pbWFnZS1vZmYiPjxsaW5lIHgxPSIyIiB4Mj0iMjIiIHkxPSIyIiB5Mj0iMjIiLz48cGF0aCBkPSJNMTAuNDEgMTAuNDFhMiAyIDAgMSAxLTIuODMtMi44MyIvPjxsaW5lIHgxPSIxMy41IiB4Mj0iNiIgeTE9IjEzLjUiIHkyPSIyMSIvPjxsaW5lIHgxPSIxOCIgeDI9IjIxIiB5MT0iMTIiIHkyPSIxNSIvPjxwYXRoIGQ9Ik0zLjU5IDMuNTlBMS45OSAxLjk5IDAgMCAwIDMgNXYxNGEyIDIgMCAwIDAgMiAyaDE0Yy41NSAwIDEuMDUyLS4yMiAxLjQxLS41OSIvPjxwYXRoIGQ9Ik0yMSAxNVY1YTIgMiAwIDAgMC0yLTJIOSIvPjwvc3ZnPg==';
-
-            const item = document.createElement('div');
-            item.className = 'item-carrusel';
-            item.innerHTML = `
-                <img src="${imagen}" alt="${titulo}">
-                <h3>${titulo}</h3>
-                <p>${autor}</p>
-            `;
-            contenedor.appendChild(item);
+        data.items?.forEach(libroRow => {
+            const libro = LibroInfo.fromGoogleBooks(libroRow);
+            const card = new LibroCard(libro, (libro) => LibroDetalle.mostrar(libro));
+            contenedor.appendChild(card.render());
         });
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -63,24 +57,10 @@ export async function buscarConFiltros(query, pagina = 1) {
 
         contador.textContent = `Resultados encontrados: ${data.totalItems}`;
 
-        data.items.forEach(libro => {
-            const info = libro.volumeInfo;
-            const titulo = info.title || 'Sin título';
-            const autor = info.authors?.join(', ') || 'Autor desconocido'; 
-            const imagen = info.imageLinks?.thumbnail || 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWltYWdlLW9mZi1pY29uIGx1Y2lkZS1pbWFnZS1vZmYiPjxsaW5lIHgxPSIyIiB4Mj0iMjIiIHkxPSIyIiB5Mj0iMjIiLz48cGF0aCBkPSJNMTAuNDEgMTAuNDFhMiAyIDAgMSAxLTIuODMtMi44MyIvPjxsaW5lIHgxPSIxMy41IiB4Mj0iNiIgeTE9IjEzLjUiIHkyPSIyMSIvPjxsaW5lIHgxPSIxOCIgeDI9IjIxIiB5MT0iMTIiIHkyPSIxNSIvPjxwYXRoIGQ9Ik0zLjU5IDMuNTlBMS45OSAxLjk5IDAgMCAwIDMgNXYxNGEyIDIgMCAwIDAgMiAyaDE0Yy41NSAwIDEuMDUyLS4yMiAxLjQxLS41OSIvPjxwYXRoIGQ9Ik0yMSAxNVY1YTIgMiAwIDAgMC0yLTJIOSIvPjwvc3ZnPg==';
-
-            const div = document.createElement('div');
-            div.className = 'resultado-libro';
-            div.innerHTML = `
-                <img src="${imagen}" alt="${titulo}">
-                <div>
-                    <h3>${titulo}</h3>
-                    <p>${autor}</p>
-                    <p><strong>Año:</strong> ${info.publishedDate || 'N/D'}</p>
-                    <p><strong>ISBN:</strong> ${info.industryIdentifiers?.[0]?.identifier || 'No disponible'}</p>
-                </div>
-            `;
-            contenedor.appendChild(div);
+        data.items.forEach(libroRow => {
+            const libro = LibroInfo.fromGoogleBooks(libroRow);
+            const card = new LibroCard(libro, (libro) => LibroDetalle.mostrar(libro));
+            contenedor.appendChild(card.render());
         });
 
         paginacion(data.totalItems, resultadosPorPagina, pagina, query);
@@ -131,6 +111,7 @@ export async function cargarLibrosTop() {
     try {
         const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=best%20books`);
         const data = await response.json();
+        console.log(data);
         const carrusel = document.getElementById('carrusel-destacado');
         if (!carrusel) return;
         carrusel.innerHTML = '';
@@ -138,6 +119,7 @@ export async function cargarLibrosTop() {
         data.items.slice(0, 10).forEach(libroRow => {
             const libro = LibroInfo.fromGoogleBooks(libroRow);
             const card = new LibroCard(libro, (libro) => LibroDetalle.mostrar(libro));
+            console.log(card);
             carrusel.appendChild(card.render()); 
         });
         console.log(data.items); //¿Hay datos?
@@ -152,13 +134,15 @@ export async function cargarLibrosPublicos() {
     try {
         const response = await fetch('https://gutendex.com/books/?languages=es');
         const data = await response.json();
+        console.log(data);
         const carrusel = document.getElementById('carrusel-gutendex');
         if (!carrusel) return;
         carrusel.innerHTML = '';
         
         data.results.slice(0, 10).forEach(libroRaw => {
-            const libro = LibroNormalizado.fromGutendex(libroRaw);
+            const libro = LibroInfo.fromGutendex(libroRaw);
             const card = new LibroCard(libro, (libro) => LibroDetalle.mostrar(libro));
+            console.log(card);
             carrusel.appendChild(card.render());
         });
     } catch (error) {

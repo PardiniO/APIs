@@ -1,4 +1,4 @@
-class LibroDetalle {
+export class LibroDetalle {
     constructor(datos) {
         this.datos = datos;
     }

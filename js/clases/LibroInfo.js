@@ -1,4 +1,4 @@
-class LibroInfo {
+export class LibroInfo {
     constructor({ imagen, titulo, autor, rating, sinopsis, enlace, esGutendex, infoExtra }) {
         this.imagen = imagen;
         this.titulo = titulo;
@@ -12,7 +12,7 @@ class LibroInfo {
 
     static fromGoogleBooks(libro) {
         const info = libro.volumeInfo || {};
-        return new LibroNormalizado({
+        return new LibroInfo({
             imagen: info.imageLinks?.thumbnail || 'data:image/svg+xml;base64,...',
             titulo: info.title || 'Sin título',
             autor: info.authors?.join(', ') || 'Autor desconocido',
@@ -32,7 +32,7 @@ class LibroInfo {
     }
 
     static fromGutendex(libro) {
-        return new LibroNormalizado({
+        return new LibroInfo({
             imagen: libro.formats?.['image/jpeg'] || 'data:image/svg+xml;base64,...',
             titulo: libro.title || 'Sin título',
             autor: libro.authors?.[0]?.name || 'Anónimo',

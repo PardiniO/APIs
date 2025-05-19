@@ -1,4 +1,4 @@
-class LibroCard {
+export class LibroCard {
     constructor(libro, onDetalle) {
         this.libro = libro;
         this.onDetalle = onDetalle;

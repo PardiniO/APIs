@@ -160,10 +160,6 @@ header.nav {
     margin-bottom: 0.5rem;
 }
 
-.resultados {
-    float: 1;
-}
-
 .resultado-item {
     display: flex;
     gap: 1rem;
@@ -550,6 +546,7 @@ footer {
 .resultados {
     display: none;
     flex-direction: row;
+    float: 1;
 }
 
 .resultados #resultados-libros {

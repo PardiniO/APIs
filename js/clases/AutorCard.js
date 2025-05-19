@@ -30,7 +30,6 @@ export class AutorCard {
         
         this.card.appendChild(cardImage);
         this.card.appendChild(cardNombre);
-        this.card.appendChild(cardBtnVer);
         this.card.appendChild(btnsDiv);
 
         this.element = this.card;

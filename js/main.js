@@ -1,4 +1,4 @@
-import { buscarLibros, buscarConFiltros, generarPaginacion, cargarLibrosTop, cargarLibrosPublicos } from "./api/libros.js";
+import { buscarLibros, buscarConFiltros, paginacion, cargarLibrosTop, cargarLibrosPublicos } from "./api/libros.js";
 import { moverCarrusel } from "./ui/carrusel.js";
 import { cargarAutores } from "./api/autores.js";
 import { detalleAutor } from "./ui/detalleAutor.js";
@@ -6,7 +6,7 @@ import { detalleAutor } from "./ui/detalleAutor.js";
 document.addEventListener('DOMContentLoaded', () => {
     try {
         buscarLibros();
-        generarPaginacion();
+        paginacion();
         cargarLibrosTop();
         cargarLibrosPublicos();
         moverCarrusel();
