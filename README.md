@@ -1,2 +1,2 @@
 # APIs
-Trabajo práctico de programación sobre la aplicación de Apis en proyectos
+Trabajo práctico de programación sobre la aplicación y el manejo de información de Apis
